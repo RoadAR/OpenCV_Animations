@@ -13,6 +13,7 @@
 
 using namespace std;
 using namespace cv;
+using namespace ui;
 
 int main(int argc, const char * argv[]) {
   // insert code here...
@@ -20,7 +21,7 @@ int main(int argc, const char * argv[]) {
   
   VideoCapture cap("/Users/alex/Desktop/VID_20170101_014346_0050.MP4");
   Mat frame;
-  shared_ptr<UIRectangle> uiRect = make_shared<UIRectangle>();
+  shared_ptr<Rectangle> uiRect = make_shared<Rectangle>();
   uiRect->borderColor = Color::red();
   uiRect->borderWidth = 3;
   uiRect->rect = Rect(100, 100, 200, 150);
@@ -33,7 +34,7 @@ int main(int argc, const char * argv[]) {
   uiRect->emplaceAnimator(&uiRect->cornerStrokePercent, 1.0f, duration).setCurve(Bezier::easeInOut());//.setName("Stroke Anim");
   
   
-  shared_ptr<UIText> uiText = make_shared<UIText>();
+  shared_ptr<Text> uiText = make_shared<Text>();
   uiText->text = "abandoned_object";
   uiText->backgroundColor = Color::red().alpha(0.5f);
   uiText->textColor = Color::white();
@@ -41,7 +42,7 @@ int main(int argc, const char * argv[]) {
   uiText->emplaceAnimator(&uiText->pos, Point2f(500, 200), duration).setCurve(Bezier::easeOut());
   uiText->emplaceAnimator(&uiText->backgroundColor, uiText->backgroundColor.alpha(1.f), duration);
   
-  UICanvas canvas;
+  Canvas canvas;
   canvas.objects["rect"] = uiRect;
   canvas.objects["text"] = uiText;
   

@@ -13,13 +13,17 @@
 #include <map>
 #include "obj_drawable.hpp"
 
-class UICanvas {
+namespace ui {
+
+class Canvas {
 public:
-  UICanvas() = default;
+  Canvas() = default;
   
-  std::map<std::string, std::shared_ptr<UIBase>> objects;
+  std::map<std::string, std::shared_ptr<Base>> objects;
   
   void drawOn(cv::Mat &img, float dt = 1.0);
 };
+
+} // namespace ui
 
 #endif /* canvas_hpp */

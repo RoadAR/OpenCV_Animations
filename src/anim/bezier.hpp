@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <opencv2/core.hpp>
 
+namespace ui {
 
 class Bezier {
 public:
@@ -27,3 +28,5 @@ private:
   cv::Point2f p1_, p2_;
   bool isLinear_ = false;
 };
+
+} // namespace ui

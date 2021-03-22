@@ -11,8 +11,9 @@
 using namespace cv;
 using namespace std;
 
+namespace ui {
 
-void UIBase::drawOn(cv::Mat &img, float dt) {
+void Base::drawOn(cv::Mat &img, float dt) {
   for (int i = ((int)animators.size())-1; i >= 0; i--) {
     animators[i].tick(dt);
     if (animators[i].isFinished()) {
@@ -22,8 +23,8 @@ void UIBase::drawOn(cv::Mat &img, float dt) {
 }
 
 // MARK: - Rectangle
-void UIRectangle::drawOn(cv::Mat &img, float dt) {
-  UIBase::drawOn(img, dt);
+void Rectangle::drawOn(cv::Mat &img, float dt) {
+  Base::drawOn(img, dt);
   
   if (fillColor.a > 0) {
     Rect r = (Rect)rect & Rect({}, img.size());
@@ -36,11 +37,16 @@ void UIRectangle::drawOn(cv::Mat &img, float dt) {
   }
 }
 
-void UIRectangle::strokeOn(cv::Mat &img) {
+void Rectangle::strokeOn(cv::Mat &img) {
   vector<vector<Point2f>> lines;
   
-  Point2f tl = rect.tl();
-  Point2f br = rect.br();
+  float inset = borderWidth * (borderOutside - 0.5);
+  Rect2f r(rect.x - inset,
+           rect.y - inset,
+           rect.width + inset*2.f,
+           rect.height + inset*2.f);
+  Point2f tl = r.tl();
+  Point2f br = r.br();
   Point2f tr(br.x, tl.y);
   Point2f bl(tl.x, br.y);
   
@@ -76,10 +82,10 @@ void UIRectangle::strokeOn(cv::Mat &img) {
   
   // draw lines
   Scalar color = borderColor.scalar();
-  Rect snapshotRect(floor(rect.x - borderWidth/2),
-                    floor(rect.y - borderWidth/2),
-                    ceil(rect.width + borderWidth),
-                    ceil(rect.height + borderWidth));
+  Rect snapshotRect(floor(r.x - borderWidth/2),
+                    floor(r.y - borderWidth/2),
+                    ceil(r.width + borderWidth),
+                    ceil(r.height + borderWidth));
   snapshotRect &= Rect({}, img.size());
   Mat snapshot = borderColor.a < 1 ? img(snapshotRect) : Mat();
   for (const auto &l : lines) {
@@ -97,20 +103,21 @@ void UIRectangle::strokeOn(cv::Mat &img) {
 
 // MARK: - UIText
 
-void UIText::drawOn(cv::Mat &img, float dt) {
-  UIBase::drawOn(img, dt);
+void Text::drawOn(cv::Mat &img, float dt) {
+  Base::drawOn(img, dt);
   if (text.empty()) {
     return;
   }
   
   cv::Size textSize = cv::getTextSize(text, FONT_HERSHEY_DUPLEX, scale, thikness, 0);
-  //    cv::Size textSize = TextDrawer::textSize(label, scale);
-  Rect r(pos.x, pos.y - textSize.height, textSize.width, textSize.height);
-  int expand = scale * 4;
-  r = Rect(r.x, r.y, r.width+expand*2, r.height+expand*2);
-  Point2f drawPoint = pos + Point2f(expand, expand);
-  Rect rCliped = r & Rect({}, img.size());
   
+  int expand = scale * 4;
+  Rect r(0, 0, textSize.width+expand*2, textSize.height+expand*2);
+  r.x = pos.x - anchor.x * r.width;
+  r.y = pos.y - anchor.y * r.height;
+  
+  Point2f drawPoint = Point2f(r.x + expand, r.br().y - expand);
+  Rect rCliped = r & Rect({}, img.size());
   
   float alpha = backgroundColor.a;
   if (alpha > 0) {
@@ -120,3 +127,5 @@ void UIText::drawOn(cv::Mat &img, float dt) {
   Mat snapshot = textColor.a < 1 ? img(rCliped) : Mat();
   putText(img, text, drawPoint, FONT_HERSHEY_DUPLEX, scale, textColor.scalar(), thikness, antialiasing ? LINE_AA : LINE_8);
 }
+
+} // namespace ui

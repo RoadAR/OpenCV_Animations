@@ -11,8 +11,9 @@
 using namespace cv;
 
 
+namespace ui {
 
-UIAnimator::UIAnimator(Color *value, const Color &to, float time): time_(time) {
+Animator::Animator(Color *value, const Color &to, float time): time_(time) {
   setup((float*)value, (float*)value, (float*)&to, 4);
   customInterpolate = [](float *value, float *from, float *to, int length, float percent){
     *(Color*)value = ((Color*)from)->interpolate(*((Color*)to), percent);
@@ -20,7 +21,7 @@ UIAnimator::UIAnimator(Color *value, const Color &to, float time): time_(time) {
 }
 
 
-void UIAnimator::setup(float *value, float *from, float *to, int length) {
+void Animator::setup(float *value, float *from, float *to, int length) {
   value_ = value;
   from = from ?: value; // if from value is missing, use current value
   from_ = std::vector<float>(from, from+length);
@@ -32,7 +33,7 @@ void UIAnimator::setup(float *value, float *from, float *to, int length) {
   }
 }
 
-void UIAnimator::tick(float dt) {
+void Animator::tick(float dt) {
   if (finished_) return;
   
   // check is other code was changed this value
@@ -61,18 +62,20 @@ void UIAnimator::tick(float dt) {
   prevValue_ = std::vector<float>(value_, value_+prevValue_.size());
 }
 
-void UIAnimator::interpolate(float *value, float *from, float *to, int length, float percent) {
+void Animator::interpolate(float *value, float *from, float *to, int length, float percent) {
   for (int i = 0; i < length; i++) {
     value[i] = (to[i] - from[i]) * percent + from[i];
   }
 }
 
-UIAnimator &UIAnimator::setName(const std::string &name) {
+Animator &Animator::setName(const std::string &name) {
   name_ = name;
   return *this;
 }
 
-UIAnimator &UIAnimator::setCurve(const Bezier &curve) {
+Animator &Animator::setCurve(const Bezier &curve) {
   curve_ = curve;
   return *this;
 }
+
+} // namespace ui

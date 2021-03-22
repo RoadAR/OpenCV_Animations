@@ -56,6 +56,7 @@ float bezierPoint(cv::Point2f p1, cv::Point2f p2, float x) {
 
 } // namespace BezierSpace
 
+namespace ui {
 
 Bezier::Bezier(cv::Point2f p1, cv::Point2f p2): p1_(p1), p2_(p2) {
   isLinear_ = (p1_ == cv::Point2f(0,0)) && (p2_ == cv::Point2f(1, 1));
@@ -74,3 +75,5 @@ float Bezier::operator()(float x) {
     return BezierSpace::bezierPoint(p1_, p2_, x);
   }
 }
+
+} // namespace ui

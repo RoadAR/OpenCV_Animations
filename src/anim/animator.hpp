@@ -12,28 +12,28 @@
 #include "bezier.hpp"
 #include "color.hpp"
 
+namespace ui {
 
-
-class UIAnimator {
+class Animator {
 public:
   template <typename T>
-  UIAnimator(T *value, const T &to, float time): time_(time) {
+  Animator(T *value, const T &to, float time): time_(time) {
     setup((float*)value, nullptr, (float*)&to, sizeof(T) / sizeof(float));
   }
   
-  UIAnimator(Color *value, const Color &to, float time);
+  Animator(Color *value, const Color &to, float time);
   
   void tick(float dt);
   bool isFinished() const { return finished_; }
   
   
-  UIAnimator &setName(const std::string &name);
+  Animator &setName(const std::string &name);
   std::string getName() const { return name_; }
   
-  UIAnimator &setCurve(const Bezier &curve);
+  Animator &setCurve(const Bezier &curve);
   
   template <typename T>
-  UIAnimator &setFrom(const T &from) {
+  Animator &setFrom(const T &from) {
     float *p = (float*)&from;
     from_ = std::vector<float>(p, p+from_.size());
   }
@@ -50,4 +50,5 @@ private:
   std::function<void(float* value, float* from, float* to, int lenght, float percent)> customInterpolate;
 };
 
+} // namespace ui
 #endif /* animator_hpp */

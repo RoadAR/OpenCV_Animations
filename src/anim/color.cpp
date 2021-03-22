@@ -9,6 +9,8 @@
 
 using namespace cv;
 
+namespace ui {
+
 cv::Scalar Color::scalar(float scale) {
   return cv::Scalar(b*scale, g*scale, r*scale, a*scale);
 }
@@ -135,3 +137,5 @@ Color Color::interpolate(Color to, float percent, bool hsvSpace) {
 Color Color::alpha(float alpha) {
   return Color(r,g,b,alpha);
 }
+
+} // namespace ui

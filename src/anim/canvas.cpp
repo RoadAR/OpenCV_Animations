@@ -7,8 +7,12 @@
 
 #include "canvas.hpp"
 
-void UICanvas::drawOn(cv::Mat &img, float dt) {
+namespace ui {
+
+void Canvas::drawOn(cv::Mat &img, float dt) {
   for (auto &k : objects) {
     k.second->drawOn(img, dt);
   }
 }
+
+} // namespace ui

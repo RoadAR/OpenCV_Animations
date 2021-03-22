@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FAB4BF3C25FF59240022D9D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BF3B25FF59240022D9D3 /* main.cpp */; };
-		FAB4BF4625FF5DF70022D9D3 /* bezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BF4425FF5DF70022D9D3 /* bezier.cpp */; };
-		FAB4BFAB2607518E0022D9D3 /* obj_drawable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFA92607518E0022D9D3 /* obj_drawable.cpp */; };
-		FAB4BFAF2607521F0022D9D3 /* animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFAD2607521F0022D9D3 /* animator.cpp */; };
-		FAB4BFB42607660D0022D9D3 /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFB22607660D0022D9D3 /* color.cpp */; };
-		FAB4BFBF2607E4C30022D9D3 /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFBD2607E4C30022D9D3 /* canvas.cpp */; };
+		FAB4BFF826093DE00022D9D3 /* canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFED26093DE00022D9D3 /* canvas.cpp */; };
+		FAB4BFF926093DE00022D9D3 /* bezier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFEF26093DE00022D9D3 /* bezier.cpp */; };
+		FAB4BFFA26093DE00022D9D3 /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFF126093DE00022D9D3 /* color.cpp */; };
+		FAB4BFFB26093DE00022D9D3 /* obj_drawable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFF226093DE00022D9D3 /* obj_drawable.cpp */; };
+		FAB4BFFC26093DE00022D9D3 /* animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFF426093DE00022D9D3 /* animator.cpp */; };
+		FAB4BFFD26093DE00022D9D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAB4BFF726093DE00022D9D3 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,18 +29,17 @@
 
 /* Begin PBXFileReference section */
 		FAB4BF3825FF59240022D9D3 /* OpenCV_Anim */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenCV_Anim; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAB4BF3B25FF59240022D9D3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		FAB4BF4425FF5DF70022D9D3 /* bezier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bezier.cpp; sourceTree = "<group>"; };
-		FAB4BF4525FF5DF70022D9D3 /* bezier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bezier.hpp; sourceTree = "<group>"; };
-		FAB4BFA92607518E0022D9D3 /* obj_drawable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = obj_drawable.cpp; sourceTree = "<group>"; };
-		FAB4BFAA2607518E0022D9D3 /* obj_drawable.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = obj_drawable.hpp; sourceTree = "<group>"; };
-		FAB4BFAD2607521F0022D9D3 /* animator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = animator.cpp; sourceTree = "<group>"; };
-		FAB4BFAE2607521F0022D9D3 /* animator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = animator.hpp; sourceTree = "<group>"; };
-		FAB4BFB22607660D0022D9D3 /* color.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
-		FAB4BFB32607660D0022D9D3 /* color.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = color.hpp; sourceTree = "<group>"; };
-		FAB4BFBB26077FF20022D9D3 /* OpenCV_Anim.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OpenCV_Anim.entitlements; sourceTree = "<group>"; };
-		FAB4BFBD2607E4C30022D9D3 /* canvas.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = canvas.cpp; sourceTree = "<group>"; };
-		FAB4BFBE2607E4C30022D9D3 /* canvas.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = canvas.hpp; sourceTree = "<group>"; };
+		FAB4BFED26093DE00022D9D3 /* canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = canvas.cpp; sourceTree = "<group>"; };
+		FAB4BFEE26093DE00022D9D3 /* obj_drawable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = obj_drawable.hpp; sourceTree = "<group>"; };
+		FAB4BFEF26093DE00022D9D3 /* bezier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bezier.cpp; sourceTree = "<group>"; };
+		FAB4BFF026093DE00022D9D3 /* animator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = animator.hpp; sourceTree = "<group>"; };
+		FAB4BFF126093DE00022D9D3 /* color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
+		FAB4BFF226093DE00022D9D3 /* obj_drawable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = obj_drawable.cpp; sourceTree = "<group>"; };
+		FAB4BFF326093DE00022D9D3 /* bezier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bezier.hpp; sourceTree = "<group>"; };
+		FAB4BFF426093DE00022D9D3 /* animator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = animator.cpp; sourceTree = "<group>"; };
+		FAB4BFF526093DE00022D9D3 /* color.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = color.hpp; sourceTree = "<group>"; };
+		FAB4BFF626093DE00022D9D3 /* canvas.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = canvas.hpp; sourceTree = "<group>"; };
+		FAB4BFF726093DE00022D9D3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../src/main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +56,7 @@
 		FAB4BF2F25FF59240022D9D3 = {
 			isa = PBXGroup;
 			children = (
-				FAB4BF3A25FF59240022D9D3 /* OpenCV_Anim */,
+				FAB4BFEB26093DD80022D9D3 /* src */,
 				FAB4BF3925FF59240022D9D3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,33 +69,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FAB4BF3A25FF59240022D9D3 /* OpenCV_Anim */ = {
+		FAB4BFEB26093DD80022D9D3 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				FAB4BFBB26077FF20022D9D3 /* OpenCV_Anim.entitlements */,
-				FAB4BF3B25FF59240022D9D3 /* main.cpp */,
-				FAB4BFA3260750880022D9D3 /* anim */,
+				FAB4BFEC26093DE00022D9D3 /* anim */,
+				FAB4BFF726093DE00022D9D3 /* main.cpp */,
 			);
-			indentWidth = 2;
-			path = OpenCV_Anim;
+			path = src;
 			sourceTree = "<group>";
-			tabWidth = 2;
 		};
-		FAB4BFA3260750880022D9D3 /* anim */ = {
+		FAB4BFEC26093DE00022D9D3 /* anim */ = {
 			isa = PBXGroup;
 			children = (
-				FAB4BF4425FF5DF70022D9D3 /* bezier.cpp */,
-				FAB4BF4525FF5DF70022D9D3 /* bezier.hpp */,
-				FAB4BFA92607518E0022D9D3 /* obj_drawable.cpp */,
-				FAB4BFAA2607518E0022D9D3 /* obj_drawable.hpp */,
-				FAB4BFAD2607521F0022D9D3 /* animator.cpp */,
-				FAB4BFAE2607521F0022D9D3 /* animator.hpp */,
-				FAB4BFB22607660D0022D9D3 /* color.cpp */,
-				FAB4BFB32607660D0022D9D3 /* color.hpp */,
-				FAB4BFBD2607E4C30022D9D3 /* canvas.cpp */,
-				FAB4BFBE2607E4C30022D9D3 /* canvas.hpp */,
+				FAB4BFEE26093DE00022D9D3 /* obj_drawable.hpp */,
+				FAB4BFF226093DE00022D9D3 /* obj_drawable.cpp */,
+				FAB4BFF326093DE00022D9D3 /* bezier.hpp */,
+				FAB4BFEF26093DE00022D9D3 /* bezier.cpp */,
+				FAB4BFF026093DE00022D9D3 /* animator.hpp */,
+				FAB4BFF426093DE00022D9D3 /* animator.cpp */,
+				FAB4BFF526093DE00022D9D3 /* color.hpp */,
+				FAB4BFF126093DE00022D9D3 /* color.cpp */,
+				FAB4BFF626093DE00022D9D3 /* canvas.hpp */,
+				FAB4BFED26093DE00022D9D3 /* canvas.cpp */,
 			);
-			path = anim;
+			name = anim;
+			path = ../../src/anim;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,12 +152,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAB4BFB42607660D0022D9D3 /* color.cpp in Sources */,
-				FAB4BFBF2607E4C30022D9D3 /* canvas.cpp in Sources */,
-				FAB4BFAF2607521F0022D9D3 /* animator.cpp in Sources */,
-				FAB4BFAB2607518E0022D9D3 /* obj_drawable.cpp in Sources */,
-				FAB4BF4625FF5DF70022D9D3 /* bezier.cpp in Sources */,
-				FAB4BF3C25FF59240022D9D3 /* main.cpp in Sources */,
+				FAB4BFFC26093DE00022D9D3 /* animator.cpp in Sources */,
+				FAB4BFFA26093DE00022D9D3 /* color.cpp in Sources */,
+				FAB4BFFD26093DE00022D9D3 /* main.cpp in Sources */,
+				FAB4BFFB26093DE00022D9D3 /* obj_drawable.cpp in Sources */,
+				FAB4BFF926093DE00022D9D3 /* bezier.cpp in Sources */,
+				FAB4BFF826093DE00022D9D3 /* canvas.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +278,7 @@
 		FAB4BF4025FF59240022D9D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = OpenCV_Anim/OpenCV_Anim.entitlements;
+				CODE_SIGN_ENTITLEMENTS = OpenCV_Anim.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE82W8HD52;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -303,7 +300,7 @@
 		FAB4BF4125FF59240022D9D3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = OpenCV_Anim/OpenCV_Anim.entitlements;
+				CODE_SIGN_ENTITLEMENTS = OpenCV_Anim.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RE82W8HD52;
 				ENABLE_HARDENED_RUNTIME = YES;
