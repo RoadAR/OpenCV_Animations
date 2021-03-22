@@ -18,7 +18,10 @@ public:
   virtual void drawOn(cv::Mat &img, float dt = 1.0);
   
   template <class... _Args>
-  UIAnimator &emplaceAnimator(_Args&&... args);
+  UIAnimator &emplaceAnimator(_Args&&... args) {
+    animators.emplace_back(std::forward<_Args>(args)...);
+    return animators.back();
+  }
   
   std::vector<UIAnimator> animators;
 };

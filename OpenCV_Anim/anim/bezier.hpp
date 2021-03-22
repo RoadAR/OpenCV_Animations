@@ -14,6 +14,7 @@
 class Bezier {
 public:
   Bezier(cv::Point2f p1, cv::Point2f p2);
+  Bezier();
   
   static Bezier linear()    { return Bezier({0,0}, {1,1}); };
   static Bezier easeIn()    { return Bezier({0.42,0}, {1,1}); };

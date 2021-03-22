@@ -21,12 +21,6 @@ void UIBase::drawOn(cv::Mat &img, float dt) {
   }
 }
 
-template <class... Args>
-UIAnimator &UIBase::emplaceAnimator(Args&&... args) {
-  animators.emplace_back(std::forward<Args>(args)...);
-  return animators.back();
-}
-
 // MARK: - Rectangle
 void UIRectangle::drawOn(cv::Mat &img, float dt) {
   UIBase::drawOn(img, dt);

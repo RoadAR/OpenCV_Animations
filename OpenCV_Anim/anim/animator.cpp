@@ -12,29 +12,13 @@ using namespace cv;
 
 
 
-UIAnimator::UIAnimator(float *value, float to, float time, Bezier curve, float *from): time_(time), curve_(curve) {
-  setup(value, from, &to, 1);
-}
-
-UIAnimator::UIAnimator(float *value, float *to, int length, float time, Bezier curve, float *from): time_(time), curve_(curve) {
-  setup(value, from, to, length);
-}
-
-UIAnimator::UIAnimator(Color *value, Color to, float time, Bezier curve, Color *from): time_(time), curve_(curve) {
-  setup((float*)value, (float*)from, (float*)&to, 4);
+UIAnimator::UIAnimator(Color *value, const Color &to, float time): time_(time) {
+  setup((float*)value, (float*)value, (float*)&to, 4);
   customInterpolate = [](float *value, float *from, float *to, int length, float percent){
     *(Color*)value = ((Color*)from)->interpolate(*((Color*)to), percent);
   };
 }
 
-UIAnimator::UIAnimator(Rect2f *value, Rect2f to, float time, Bezier curve, Rect2f *from): time_(time), curve_(curve) {
-  setup((float*)value, (float*)from, (float*)&to, 4);
-}
-
-
-UIAnimator::UIAnimator(cv::Point2f *value, cv::Point2f to, float time, Bezier curve, cv::Point2f *from): time_(time), curve_(curve) {
-  setup((float*)value, (float*)from, (float*)&to, 2);
-}
 
 void UIAnimator::setup(float *value, float *from, float *to, int length) {
   value_ = value;
@@ -85,5 +69,10 @@ void UIAnimator::interpolate(float *value, float *from, float *to, int length, f
 
 UIAnimator &UIAnimator::setName(const std::string &name) {
   name_ = name;
+  return *this;
+}
+
+UIAnimator &UIAnimator::setCurve(const Bezier &curve) {
+  curve_ = curve;
   return *this;
 }

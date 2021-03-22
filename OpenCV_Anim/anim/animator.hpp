@@ -16,15 +16,12 @@
 
 class UIAnimator {
 public:
-  UIAnimator(float *value, float to, float time, Bezier curve = Bezier::linear(), float *from = nullptr);
+  template <typename T>
+  UIAnimator(T *value, const T &to, float time): time_(time) {
+    setup((float*)value, nullptr, (float*)&to, sizeof(T) / sizeof(float));
+  }
   
-  UIAnimator(float *value, float *to, int length, float time, Bezier curve = Bezier::linear(), float *from = nullptr);
-  
-  UIAnimator(Color *value, Color to, float time, Bezier curve = Bezier::linear(), Color *from = nullptr);
-  
-  UIAnimator(cv::Rect2f *value, cv::Rect2f to, float time, Bezier curve = Bezier::linear(), cv::Rect2f *from = nullptr);
-  
-  UIAnimator(cv::Point2f *value, cv::Point2f to, float time, Bezier curve = Bezier::linear(), cv::Point2f *from = nullptr);
+  UIAnimator(Color *value, const Color &to, float time);
   
   void tick(float dt);
   bool isFinished() const { return finished_; }
@@ -32,6 +29,14 @@ public:
   
   UIAnimator &setName(const std::string &name);
   std::string getName() const { return name_; }
+  
+  UIAnimator &setCurve(const Bezier &curve);
+  
+  template <typename T>
+  UIAnimator &setFrom(const T &from) {
+    float *p = (float*)&from;
+    from_ = std::vector<float>(p, p+from_.size());
+  }
   
 private:
   bool finished_ = false;

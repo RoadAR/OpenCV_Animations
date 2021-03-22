@@ -27,11 +27,10 @@ int main(int argc, const char * argv[]) {
   uiRect->cornerStrokePercent = 0;
   
   float duration = 60;
-  uiRect->animators.emplace_back(&uiRect->rect, Rect2f(500, 200, 400, 200), duration, Bezier::easeInOut());//.setName("Rect Anim");
-//  uiRect.emplaceAnimator(&uiRect.rect, Rect2f(500, 200, 400, 200), duration, Bezier::easeInOut()).setName("Rect Anim");
+  uiRect->emplaceAnimator(&uiRect->rect, Rect2f(500, 200, 400, 200), duration).setCurve(Bezier::easeInOut()).setName("Rect Anim");
   // почемуто второй способ не работает
   
-  uiRect->animators.emplace_back(&uiRect->cornerStrokePercent, 1.0f, 60.f, Bezier::easeInOut());//.setName("Stroke Anim");
+  uiRect->emplaceAnimator(&uiRect->cornerStrokePercent, 1.0f, duration).setCurve(Bezier::easeInOut());//.setName("Stroke Anim");
   
   
   shared_ptr<UIText> uiText = make_shared<UIText>();
@@ -39,9 +38,8 @@ int main(int argc, const char * argv[]) {
   uiText->backgroundColor = Color::red().alpha(0.5f);
   uiText->textColor = Color::white();
   uiText->pos = uiRect->rect.tl();
-  uiText->animators.emplace_back(&uiText->pos, Point2f(500, 200), duration, Bezier::easeOut());
-//  uiText->animators.emplace_back(&uiText->thikness, 5.0f, duration*2);
-  uiText->animators.emplace_back(&uiText->backgroundColor, uiText->backgroundColor.alpha(1.f), duration);
+  uiText->emplaceAnimator(&uiText->pos, Point2f(500, 200), duration).setCurve(Bezier::easeOut());
+  uiText->emplaceAnimator(&uiText->backgroundColor, uiText->backgroundColor.alpha(1.f), duration);
   
   UICanvas canvas;
   canvas.objects["rect"] = uiRect;
