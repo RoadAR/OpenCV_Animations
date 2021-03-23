@@ -59,7 +59,9 @@
 				FAB4BFEB26093DD80022D9D3 /* src */,
 				FAB4BF3925FF59240022D9D3 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		FAB4BF3925FF59240022D9D3 /* Products */ = {
 			isa = PBXGroup;
@@ -75,8 +77,10 @@
 				FAB4BFEC26093DE00022D9D3 /* anim */,
 				FAB4BFF726093DE00022D9D3 /* main.cpp */,
 			);
+			indentWidth = 2;
 			path = src;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		FAB4BFEC26093DE00022D9D3 /* anim */ = {
 			isa = PBXGroup;

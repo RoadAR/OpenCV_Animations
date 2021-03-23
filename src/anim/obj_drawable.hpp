@@ -52,6 +52,7 @@ public:
   cv::Point2f pos;
   float thikness = 1.0f;
   float scale = 1.0f;
+  float textFill = 1.0f;
   cv::Point2f anchor = cv::Point2f(0, 1); // bottom left
   Color backgroundColor = {}; // alpha support
   Color textColor = {}; // alpha support

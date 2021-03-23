@@ -115,6 +115,7 @@ void Text::drawOn(cv::Mat &img, float dt) {
   Rect r(0, 0, textSize.width+expand*2, textSize.height+expand*2);
   r.x = pos.x - anchor.x * r.width;
   r.y = pos.y - anchor.y * r.height;
+  r.width *= textFill;
   
   Point2f drawPoint = Point2f(r.x + expand, r.br().y - expand);
   Rect rCliped = r & Rect({}, img.size());
@@ -125,7 +126,20 @@ void Text::drawOn(cv::Mat &img, float dt) {
   }
   
   Mat snapshot = textColor.a < 1 ? img(rCliped) : Mat();
-  putText(img, text, drawPoint, FONT_HERSHEY_DUPLEX, scale, textColor.scalar(), thikness, antialiasing ? LINE_AA : LINE_8);
+  string drawText = text;
+  if (textFill < 1) {
+    while (drawText.length()) {
+      cv::Size textSize = cv::getTextSize(drawText, FONT_HERSHEY_DUPLEX, scale, thikness, 0);
+      if (textSize.width + expand*2 <= r.width) {
+        // text fit to rect
+        break;
+      } else {
+        // text doesn't fit inside rect, so make length smaller
+        drawText.pop_back();
+      }
+    }
+  }
+  putText(img, drawText, drawPoint, FONT_HERSHEY_DUPLEX, scale, textColor.scalar(), thikness, antialiasing ? LINE_AA : LINE_8);
 }
 
 } // namespace ui

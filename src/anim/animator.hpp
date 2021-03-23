@@ -18,7 +18,7 @@ class Animator {
 public:
   template <typename T>
   Animator(T *value, const T &to, float time): time_(time) {
-    setup((float*)value, nullptr, (float*)&to, sizeof(T) / sizeof(float));
+    setup((float*)value, (float*)&to, sizeof(T) / sizeof(float));
   }
   
   Animator(Color *value, const Color &to, float time);
@@ -32,20 +32,23 @@ public:
   
   Animator &setCurve(const Bezier &curve);
   
+  Animator &setDelay(float delay);
+  
   template <typename T>
   Animator &setFrom(const T &from) {
     float *p = (float*)&from;
-    from_ = std::vector<float>(p, p+from_.size());
+    from_ = std::vector<float>(p, p+to_.size());
+    return *this;
   }
   
 private:
   bool finished_ = false;
-  float *value_, time_, currTime_ = 0;
+  float *value_, time_, currTime_ = 0, delay_ = 0.f;
   Bezier curve_;
   std::vector<float> from_, to_, prevValue_;
   std::string name_;
   
-  void setup(float *value, float *from, float *to, int length);
+  void setup(float *value, float *to, int length);
   void interpolate(float *value, float *from, float *to, int length, float percent);
   std::function<void(float* value, float* from, float* to, int lenght, float percent)> customInterpolate;
 };
