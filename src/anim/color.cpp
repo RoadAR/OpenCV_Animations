@@ -11,7 +11,7 @@ using namespace cv;
 
 namespace ui {
 
-cv::Scalar Color::scalar(float scale) {
+cv::Scalar Color::scalar(float scale) const {
   return cv::Scalar(b*scale, g*scale, r*scale, a*scale);
 }
 
@@ -121,7 +121,7 @@ Color hsv2rgb(Color in)
   return out;
 }
 
-Color Color::interpolate(Color to, float percent, bool hsvSpace) {
+Color Color::interpolate(Color to, float percent, bool hsvSpace) const {
   Color fromHsv = hsvSpace ? rgb2hsv(*this) : *this;
   Color toHsv = hsvSpace ? rgb2hsv(to) : to;
   toHsv.r = (toHsv.r - fromHsv.r) * percent + fromHsv.r;

@@ -17,7 +17,8 @@ namespace ui {
 
 class Base {
 public:
-  virtual void drawOn(cv::Mat &img, float dt = 1.0);
+  void tickAndDraw(cv::Mat &img, float dt = 1.0);
+  virtual void drawOn(cv::Mat &img) const = 0;
   
   template <class... _Args>
   Animator &emplaceAnimator(_Args&&... args) {
@@ -26,6 +27,15 @@ public:
   }
   
   std::vector<Animator> animators;
+  
+  /// helpful when you finish animation and autoremove from hierarchy automaticly
+  void setAutoRemoveAfter(float time);
+  bool getNeedToBeRemoved() const;
+  void resetAutoRemove();
+  
+private:
+  float autoRemoveTime_ = -1;
+  bool needToBeRemoved_ = false;
 };
 
 
@@ -39,10 +49,10 @@ public:
   float borderOutside = 0; // 0 - inside, 0.5 - middle, 1 - outside
   bool antialiasing = true;
   
-  void drawOn(cv::Mat &img, float dt = 1.0) override;
+  void drawOn(cv::Mat &img) const override;
   
 private:
-  void strokeOn(cv::Mat &img);
+  void strokeOn(cv::Mat &img) const;
 };
 
 
@@ -58,7 +68,7 @@ public:
   Color textColor = {}; // alpha support
   bool antialiasing = true;
   
-  void drawOn(cv::Mat &img, float dt = 1.0) override;
+  void drawOn(cv::Mat &img) const override;
 };
 
 }

@@ -18,8 +18,8 @@ struct Color {
   Color() {};
   Color(float r, float g, float b, float a = 1): r(r), g(g), b(b), a(a) {};
   
-  cv::Scalar scalar(float scale = 255.f);
-  Color interpolate(Color to, float percent, bool hsvSpace = true);
+  cv::Scalar scalar(float scale = 255.f) const;
+  Color interpolate(Color to, float percent, bool hsvSpace = true) const;
   Color alpha(float alpha);
   
   static Color white()  { return Color(1,1,1,1); }

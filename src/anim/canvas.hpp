@@ -21,7 +21,7 @@ public:
   
   std::map<std::string, std::shared_ptr<Base>> objects;
   
-  void drawOn(cv::Mat &img, float dt = 1.0);
+  void tickAndDraw(cv::Mat &img, float dt = 1.0);
 };
 
 } // namespace ui

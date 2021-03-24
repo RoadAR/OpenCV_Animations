@@ -15,12 +15,13 @@ namespace ui {
 class Bezier {
 public:
   Bezier(cv::Point2f p1, cv::Point2f p2);
+  Bezier(float x1, float x2); // y1 = 0, y2 = 1
   Bezier();
   
-  static Bezier linear()    { return Bezier({0,0}, {1,1}); };
-  static Bezier easeIn()    { return Bezier({0.42,0}, {1,1}); };
-  static Bezier easeOut() { return Bezier({0,0}, {0.58,1}); };
-  static Bezier easeInOut() { return Bezier({0.42,0}, {0.58,1}); };
+  static Bezier linear()    { return Bezier(0, 1); };
+  static Bezier easeIn()    { return Bezier(0.42, 1); };
+  static Bezier easeOut()   { return Bezier(0, 0.58); };
+  static Bezier easeInOut() { return Bezier(0.42, 0.58); };
   
   float operator()(float x);
   

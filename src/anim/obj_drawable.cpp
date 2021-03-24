@@ -13,19 +13,44 @@ using namespace std;
 
 namespace ui {
 
-void Base::drawOn(cv::Mat &img, float dt) {
+void Base::tickAndDraw(cv::Mat &img, float dt) {
+  if (autoRemoveTime_ > 0) {
+    autoRemoveTime_ = MAX(0, autoRemoveTime_ - dt);
+    if (autoRemoveTime_ == 0) {
+      needToBeRemoved_ = true;
+    }
+  }
+  if (needToBeRemoved_) {
+    return;
+  }
+  
+  
+  // tick
   for (int i = ((int)animators.size())-1; i >= 0; i--) {
     animators[i].tick(dt);
     if (animators[i].isFinished()) {
       animators.erase(animators.begin() + i);
     }
   }
+  
+  drawOn(img);
+}
+
+void Base::setAutoRemoveAfter(float time) {
+  autoRemoveTime_ = time;
+}
+
+bool Base::getNeedToBeRemoved() const {
+  return needToBeRemoved_;
+}
+
+void Base::resetAutoRemove() {
+  autoRemoveTime_ = -1;
+  needToBeRemoved_ = true;
 }
 
 // MARK: - Rectangle
-void Rectangle::drawOn(cv::Mat &img, float dt) {
-  Base::drawOn(img, dt);
-  
+void Rectangle::drawOn(cv::Mat &img) const {
   if (fillColor.a > 0) {
     Rect r = (Rect)rect & Rect({}, img.size());
     float alpha = MIN(1, fillColor.a);
@@ -37,7 +62,7 @@ void Rectangle::drawOn(cv::Mat &img, float dt) {
   }
 }
 
-void Rectangle::strokeOn(cv::Mat &img) {
+void Rectangle::strokeOn(cv::Mat &img) const {
   vector<vector<Point2f>> lines;
   
   float inset = borderWidth * (borderOutside - 0.5);
@@ -82,12 +107,12 @@ void Rectangle::strokeOn(cv::Mat &img) {
   
   // draw lines
   Scalar color = borderColor.scalar();
-  Rect snapshotRect(floor(r.x - borderWidth/2),
-                    floor(r.y - borderWidth/2),
-                    ceil(r.width + borderWidth),
-                    ceil(r.height + borderWidth));
+  Rect snapshotRect(floor(r.x - borderWidth/2)-1,
+                    floor(r.y - borderWidth/2)-1,
+                    ceil(r.width + borderWidth)+2,
+                    ceil(r.height + borderWidth)+2);
   snapshotRect &= Rect({}, img.size());
-  Mat snapshot = borderColor.a < 1 ? img(snapshotRect) : Mat();
+  Mat snapshot = borderColor.a < 1 ? img(snapshotRect).clone() : Mat();
   for (const auto &l : lines) {
     for (int i = 1; i < l.size(); i++) {
       cv::line(img, l[i-1], l[i], color, borderWidth, antialiasing ? LINE_AA : LINE_8);
@@ -103,8 +128,7 @@ void Rectangle::strokeOn(cv::Mat &img) {
 
 // MARK: - UIText
 
-void Text::drawOn(cv::Mat &img, float dt) {
-  Base::drawOn(img, dt);
+void Text::drawOn(cv::Mat &img) const {
   if (text.empty()) {
     return;
   }

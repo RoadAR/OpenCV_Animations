@@ -9,9 +9,12 @@
 
 namespace ui {
 
-void Canvas::drawOn(cv::Mat &img, float dt) {
-  for (auto &k : objects) {
-    k.second->drawOn(img, dt);
+void Canvas::tickAndDraw(cv::Mat &img, float dt) {
+  for (auto it = objects.cbegin(); it != objects.cend(); it++) {
+    it->second->tickAndDraw(img, dt);
+    if (it->second->getNeedToBeRemoved()) {
+      objects.erase(it);
+    }
   }
 }
 

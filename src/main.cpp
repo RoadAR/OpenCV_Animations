@@ -24,13 +24,16 @@ void addDetection(ui::Canvas &canvas) {
   uiRect->borderColor = candColor;
   uiRect->borderWidth = 3;
   uiRect->borderOutside = 0;
-  uiRect->emplaceAnimator(&uiRect->cornerStrokePercent, 0.3f, 30)
+  uiRect->emplaceAnimator(&uiRect->cornerStrokePercent, 0.3f, 10)
   .setFrom(0.f)
   .setName("stroke_start")
   .setCurve(Bezier::easeInOut());
   
-  uiRect->emplaceAnimator(&uiRect->cornerStrokePercent, 1.0f, 30).setDelay(150).setName("stroke_end").setCurve(Bezier::easeInOut());
-  uiRect->emplaceAnimator(&uiRect->borderColor, detColor, 30).setDelay(150).setName("color");
+  uiRect->emplaceAnimator(&uiRect->cornerStrokePercent, 1.0f, 20).setDelay(80).setName("stroke_end").setCurve(Bezier::easeInOut());
+  uiRect->emplaceAnimator(&uiRect->borderColor, detColor, 20).setDelay(80).setName("color");
+  
+  uiRect->emplaceAnimator(&uiRect->borderColor, detColor.alpha(0), 20).setDelay(150).setName("fade_out");
+  uiRect->setAutoRemoveAfter(150+20);
   
   shared_ptr<Text> uiText = make_shared<Text>();
   uiText->text = "Abandoned Object";
@@ -38,8 +41,8 @@ void addDetection(ui::Canvas &canvas) {
   uiText->textColor = Color::white();
   uiText->pos = uiRect->rect.tl();
   uiText->textFill = 0;
-  uiText->emplaceAnimator(&uiText->backgroundColor, detColor, 30).setName("color").setDelay(150);
-  uiText->emplaceAnimator(&uiText->textFill, 1.0f, 30).setName("text fill").setDelay(150);
+  uiText->emplaceAnimator(&uiText->backgroundColor, detColor, 20).setName("color").setDelay(80);
+  uiText->emplaceAnimator(&uiText->textFill, 1.0f, 20).setName("text fill").setDelay(80);
   
   canvas.objects["rect_2"] = uiRect;
   canvas.objects["text_2"] = uiText;
@@ -82,17 +85,15 @@ int main(int argc, const char * argv[]) {
   string savePath = "/Users/alex/Downloads/anim_test.mp4";
   VideoWriter writer;
   while (cap.read(frame)) {
-    if (savePath.length() && !writer.isOpened()) {
-      int fourcc = cv::VideoWriter::fourcc('a', 'v', 'c', '1');
-      writer.open(savePath, fourcc, 30, frame.size());
-    }
+//    if (savePath.length() && !writer.isOpened()) {
+//      int fourcc = cv::VideoWriter::fourcc('a', 'v', 'c', '1');
+//      writer.open(savePath, fourcc, 30, frame.size());
+//    }
     frameIdx++;
     if (frameIdx == 120) {
       addDetection(canvas);
-    } else if (frameIdx == 500) {
-      break;
     }
-    canvas.drawOn(frame);
+    canvas.tickAndDraw(frame);
     if (writer.isOpened()) {
       writer.write(frame);
     }

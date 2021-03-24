@@ -61,6 +61,9 @@ namespace ui {
 Bezier::Bezier(cv::Point2f p1, cv::Point2f p2): p1_(p1), p2_(p2) {
   isLinear_ = (p1_ == cv::Point2f(0,0)) && (p2_ == cv::Point2f(1, 1));
 }
+Bezier::Bezier(float x1, float x2): p1_(cv::Point2f(x1, 0.f)), p2_(cv::Point2f(x2, 1.f)) {
+  isLinear_ = x1 == 0 && x2 == 1;
+}
 
 Bezier::Bezier() {
   p1_ = {};
