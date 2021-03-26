@@ -43,6 +43,7 @@ void addDetection(ui::Canvas &canvas) {
   uiText->textFill = 0;
   uiText->emplaceAnimator(&uiText->backgroundColor, detColor, 20).setName("color").setDelay(80);
   uiText->emplaceAnimator(&uiText->textFill, 1.0f, 20).setName("text fill").setDelay(80);
+  uiText->emplaceAnimator(&uiText->textColor, uiText->textColor.alpha(0), 20).setDelay(150).setName("fade_out_text");
   
   canvas.objects["rect_2"] = uiRect;
   canvas.objects["text_2"] = uiText;

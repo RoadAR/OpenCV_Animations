@@ -40,6 +40,14 @@ void Base::setAutoRemoveAfter(float time) {
   autoRemoveTime_ = time;
 }
 
+float Base::getAutoRemoveTime() const {
+  return autoRemoveTime_;
+}
+
+void Base::setAutoRemove() {
+  needToBeRemoved_ = true;
+}
+
 bool Base::getNeedToBeRemoved() const {
   return needToBeRemoved_;
 }
@@ -107,10 +115,10 @@ void Rectangle::strokeOn(cv::Mat &img) const {
   
   // draw lines
   Scalar color = borderColor.scalar();
-  Rect snapshotRect(floor(r.x - borderWidth/2)-1,
-                    floor(r.y - borderWidth/2)-1,
-                    ceil(r.width + borderWidth)+2,
-                    ceil(r.height + borderWidth)+2);
+  Rect snapshotRect(floor(r.x - borderWidth/2)-2,
+                    floor(r.y - borderWidth/2)-2,
+                    ceil(r.width + borderWidth)+4,
+                    ceil(r.height + borderWidth)+4);
   snapshotRect &= Rect({}, img.size());
   Mat snapshot = borderColor.a < 1 ? img(snapshotRect).clone() : Mat();
   for (const auto &l : lines) {
@@ -137,11 +145,13 @@ void Text::drawOn(cv::Mat &img) const {
   
   int expand = scale * 4;
   Rect r(0, 0, textSize.width+expand*2, textSize.height+expand*2);
+  r.width += margin.left + margin.right;
+  r.height += margin.top + margin.bot;
   r.x = pos.x - anchor.x * r.width;
   r.y = pos.y - anchor.y * r.height;
   r.width *= textFill;
   
-  Point2f drawPoint = Point2f(r.x + expand, r.br().y - expand);
+  Point2f drawPoint = Point2f(r.x + expand + margin.left, r.br().y - expand - margin.bot);
   Rect rCliped = r & Rect({}, img.size());
   
   float alpha = backgroundColor.a;
@@ -149,7 +159,7 @@ void Text::drawOn(cv::Mat &img) const {
     addWeighted(img(rCliped), 1-alpha, backgroundColor.scalar(), alpha, 0, img(rCliped));
   }
   
-  Mat snapshot = textColor.a < 1 ? img(rCliped) : Mat();
+  Mat snapshot = textColor.a < 1 ? img(rCliped).clone() : Mat();
   string drawText = text;
   if (textFill < 1) {
     while (drawText.length()) {
@@ -164,6 +174,12 @@ void Text::drawOn(cv::Mat &img) const {
     }
   }
   putText(img, drawText, drawPoint, FONT_HERSHEY_DUPLEX, scale, textColor.scalar(), thikness, antialiasing ? LINE_AA : LINE_8);
+  
+  // border with alpha
+  if (!snapshot.empty()) {
+    float alpha = textColor.a;
+    addWeighted(img(rCliped), alpha, snapshot, 1-alpha, 0, img(rCliped));
+  }
 }
 
 } // namespace ui

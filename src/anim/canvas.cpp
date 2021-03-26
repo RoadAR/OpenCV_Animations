@@ -10,10 +10,12 @@
 namespace ui {
 
 void Canvas::tickAndDraw(cv::Mat &img, float dt) {
-  for (auto it = objects.cbegin(); it != objects.cend(); it++) {
+  for (auto it = objects.cbegin(); it != objects.cend();) {
     it->second->tickAndDraw(img, dt);
     if (it->second->getNeedToBeRemoved()) {
-      objects.erase(it);
+      it = objects.erase(it);
+    } else {
+      it++;
     }
   }
 }

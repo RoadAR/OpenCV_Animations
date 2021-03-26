@@ -30,6 +30,8 @@ public:
   
   /// helpful when you finish animation and autoremove from hierarchy automaticly
   void setAutoRemoveAfter(float time);
+  float getAutoRemoveTime() const;
+  void setAutoRemove();
   bool getNeedToBeRemoved() const;
   void resetAutoRemove();
   
@@ -46,7 +48,8 @@ public:
   Color fillColor = {}; // alpha support
   cv::Rect2f rect;
   float cornerStrokePercent = 1;
-  float borderOutside = 0; // 0 - inside, 0.5 - middle, 1 - outside
+  /// 0 - inside, 0.5 - middle, 1 - outside
+  float borderOutside = 0;
   bool antialiasing = true;
   
   void drawOn(cv::Mat &img) const override;
@@ -55,6 +58,16 @@ private:
   void strokeOn(cv::Mat &img) const;
 };
 
+
+struct Inset {
+  Inset(){};
+  Inset(float left, float top, float right, float bot):
+    left(left), top(top), right(right), bot(bot) {}
+  Inset(float x, float y):
+    left(x), top(y), right(x), bot(y) {}
+  
+  float left = 0, top = 0, right = 0, bot = 0;
+};
 
 class Text: public Base {
 public:
@@ -66,6 +79,7 @@ public:
   cv::Point2f anchor = cv::Point2f(0, 1); // bottom left
   Color backgroundColor = {}; // alpha support
   Color textColor = {}; // alpha support
+  Inset margin = {};
   bool antialiasing = true;
   
   void drawOn(cv::Mat &img) const override;
